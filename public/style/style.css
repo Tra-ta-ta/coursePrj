@@ -1,0 +1,16 @@
+.mybody {
+    background-color: #bab8b8;
+}
+
+.login_form {
+    margin-top: 200px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 50%;
+}
+
+.images {
+    background-color: gray;
+
+}
