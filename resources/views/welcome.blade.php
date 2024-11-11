@@ -1,4 +1,5 @@
 @extends('loyauts.formsite')
+@section('title', 'Главная')
 @section('content')
     <div class="container mt-5">
         <!-- Top Bar -->

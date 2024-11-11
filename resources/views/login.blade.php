@@ -1,24 +1,25 @@
 @extends('loyauts.formsite')
+@section('title', 'Вход')
 @section('content')
-    <div class="container mt-5">
-        <div class="row">
-            <!-- Left Panel -->
-            <div class="col-md-8 border p-4">
-                <!-- Content for the left panel -->
+    @error('login')
+        {{ $message }}
+    @enderror
+    <main class="form-signin w-100 m-auto">
+        <form method="POST" action="{{ route('login') }}">
+            @csrf
+            <h1 class="h3 mb-3 mt-3 fw-normal">Please sign in</h1>
+
+            <div class="form-floating">
+                <input type="text" name="login" class="form-control" id="floatingInput" value="{{ old('login') }}">
+                <label for="floatingInput">Логин</label>
             </div>
-            <!-- Right Panel (Login Form) -->
-            <div class="col-md-4 border p-4 text-center">
-                <form action="{{ route('login') }}" method="POST">
-                    @csrf
-                    <div class="mb-3">
-                        <input type="text" class="form-control" placeholder="Логин" name="login">
-                    </div>
-                    <div class="mb-3">
-                        <input type="password" class="form-control" placeholder="Пароль" name="password">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Войти</button>
-                </form>
+            <div class="form-floating">
+                <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
+                <label for="floatingPassword">Пароль</label>
             </div>
-        </div>
-    </div>
+            <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+            <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2024</p>
+        </form>
+    </main>
+
 @endsection('content')

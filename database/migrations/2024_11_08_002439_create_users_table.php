@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('Phone', 17);
             $table->tinyText('Login');
             $table->tinyText('Password');
-            $table->integer('roles_idRole');
+            $table->integer('roles_idRole')->default(1);
             $table->foreign('roles_idRole')->references('idRole')->on('roles')->onDelete('NO ACTION')->onUpdate('NO ACTION');
             $table->timestamps();
         });

@@ -1,15 +1,24 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegistrationController;
 use App\Http\Controllers\Login;
 use App\Http\Controllers\Bronirovanie;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-Route::get('/login', [Login::class, 'index']);
-Route::post('/login', [Login::class, 'login'])->name('login');
+Route::get('/bron', [Bronirovanie::class, 'index'])->name('bron')->middleware('auth');
+Route::post('/bron', [Bronirovanie::class, 'createBron'])->name('createBron')->middleware('auth');
 
-Route::get('/bron', [Bronirovanie::class, 'index'])->name('bron');
-Route::post('/bron', [Bronirovanie::class, 'createBron'])->name('createBron');
+Route::get('/dashboard' )->name('dashboard')->middleware('auth');
+
+Route::get('/registration', [RegistrationController::class, 'index'])->middleware('guest')->name('registration');
+Route::post('/registration', [RegistrationController::class, 'store'])->middleware('guest');
+
+Route::get('/login',[LoginController::class,'index'])->middleware('guest')->name('login');
+Route::post('/login',[LoginController::class,'login'])->middleware('guest');
+
