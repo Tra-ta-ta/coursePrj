@@ -7,6 +7,6 @@
 2) установить композер на этот проект
 ## add .env
 3) Добавить все необходимые переменные в .env
-## php artisam key:generate
+## php artisan key:generate
 ## php artisan migrate
 ## php artisan serve
