@@ -21,8 +21,8 @@ class RegistrationController extends Controller
             'surname' => 'required',
             'thirdname' => 'required',
             'phone' => 'required|max:17|min:12',
-            'login' => 'required|min:6',
-            'password' => 'required|min:6'
+            'login' => 'required|min:5',
+            'password' => 'required|min:5'
         ]);
         $user = User::create([
             'name' => $request->name,

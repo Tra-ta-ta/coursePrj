@@ -12,14 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table){
-            $table->integer('idOrder')->autoIncrement()->primary();
-            $table->mediumText('Message')->nullable();
-            $table->date('OnDate');
-            $table->integer('Duration');
-            $table->integer('Users_idUser');
-            $table->integer('TypeRoom_idTypeRoom');
-            $table->foreign('Users_idUser')->references('idUser')->on('users')->onDelete('NO ACTION')->onUpdate('NO ACTION');
-            $table->foreign('TypeRoom_idTypeRoom')->references('idTypeRoom')->on('typeRooms')->onDelete('NO ACTION')->onUpdate('NO ACTION');
+            $table->integer('id')->autoIncrement()->primary();
+            $table->mediumText('message')->nullable();
+            $table->date('onDate');
+            $table->integer('duration');
+            $table->integer('users_idUser');
+            $table->integer('typeRoom_idTypeRoom');
+            $table->foreign('users_idUser')->references('id')->on('users')->onDelete('NO ACTION')->onUpdate('NO ACTION');
+            $table->foreign('typeRoom_idTypeRoom')->references('id')->on('typeRooms')->onDelete('NO ACTION')->onUpdate('NO ACTION');
             $table->timestamps();
         });
     }

@@ -27,24 +27,50 @@
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Главная</a>
+                            <a class="nav-link active" aria-current="page" href="{{ route('welcome') }}">Главная</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Рекомендуемые</a>
+                            <a class="nav-link" href="#">Услуги</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Цена</a>
+                            <a class="nav-link" href="#">Наши номера</a>
                         </li>
+                        @auth
+                        @if (Auth::user()->isAdmin())
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Управление номерами</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Управление услугами</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Управление персоналом</a>
+                        </li>
+                        @endif
+                        @endauth
+                        
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
-                                Выпадающий список ссылкой
+                                Действия
                             </a>
+                            @auth
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Действие</a></li>
-                                <li><a class="dropdown-item" href="#">Другое действие</a></li>
-                                <li><a class="dropdown-item" href="#">Что-то еще здесь</a></li>
+                                <li><a class="dropdown-item" href="{{route('login')}}">Личный кабинет</a></li>
+                                <form action="{{route('logout')}}" method="post">
+                                    @csrf
+                                <li><button class="dropdown-item" type="success">Выйти</button></li>
+                                </form>
                             </ul>
+                            
+                            @endauth
+                            @guest
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{route('login')}}">Войти</a></li>
+                                <li><a class="dropdown-item" href="{{route('registration')}}">Зарегестрироваться</a></li>
+                            </ul>
+                            @endguest
+                            
                         </li>
                     </ul>
                 </div>

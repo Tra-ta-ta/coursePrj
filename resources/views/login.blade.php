@@ -1,9 +1,11 @@
 @extends('loyauts.formsite')
 @section('title', 'Вход')
 @section('content')
-    @error('login')
-        {{ $message }}
-    @enderror
+
+    @foreach ($errors->all() as $error)
+        {{$error}}
+    @endforeach
+    
     <main class="form-signin w-100 m-auto">
         <form method="POST" action="{{ route('login') }}">
             @csrf

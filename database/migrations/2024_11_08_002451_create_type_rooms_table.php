@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('typeRooms', function (Blueprint $table){
-            $table->integer('idTypeRoom')->autoIncrement()->primary();
-            $table->tinyText('TypeRoom');
-            $table->double('Price');
-            $table->mediumText('Description');
-            $table->string('Image', 255);
+            $table->integer('id')->autoIncrement()->primary();
+            $table->tinyText('typeRoom');
+            $table->double('price');
+            $table->mediumText('description');
+            $table->string('image', 255);
             $table->timestamps();
         });
     }
