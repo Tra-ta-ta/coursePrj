@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('typeRooms', function (Blueprint $table){
+        Schema::create('type_rooms', function (Blueprint $table) {
             $table->integer('id')->autoIncrement()->primary();
             $table->tinyText('typeRoom');
             $table->double('price');

@@ -11,17 +11,19 @@ use Illuminate\Support\Facades\Hash;
 class RegistrationController extends Controller
 {
 
-    public function index(){
+    public function index()
+    {
         return view('registration.registration');
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $request->validate([
             'name' => 'required',
             'surname' => 'required',
             'thirdname' => 'required',
-            'phone' => 'required|max:17|min:12',
-            'login' => 'required|min:5',
+            'phone' => 'required|max:17|min:10',
+            'login' => 'required|min:5|unique:users,login',
             'password' => 'required|min:5'
         ]);
         $user = User::create([

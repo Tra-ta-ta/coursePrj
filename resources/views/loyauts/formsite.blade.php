@@ -36,48 +36,54 @@
                             <a class="nav-link" href="#">Наши номера</a>
                         </li>
                         @auth
-                        @if (Auth::user()->isAdmin())
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Управление номерами</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Управление услугами</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Управление персоналом</a>
-                        </li>
-                        @endif
+                            @if (Auth::user()->isAdmin())
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('room.index') }}">Управление номерами</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Управление услугами</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Управление персоналом</a>
+                                </li>
+                            @endif
                         @endauth
-                        
+
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
-                                Действия
+                                Ещё
                             </a>
                             @auth
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{{route('login')}}">Личный кабинет</a></li>
-                                <form action="{{route('logout')}}" method="post">
-                                    @csrf
-                                <li><button class="dropdown-item" type="success">Выйти</button></li>
-                                </form>
-                            </ul>
-                            
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{ route('login') }}">Личный кабинет</a></li>
+                                    <form action="{{ route('logout') }}" method="post">
+                                        @csrf
+                                        <li><button class="dropdown-item" type="success">Выйти</button></li>
+                                    </form>
+                                </ul>
+
                             @endauth
                             @guest
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{{route('login')}}">Войти</a></li>
-                                <li><a class="dropdown-item" href="{{route('registration')}}">Зарегестрироваться</a></li>
-                            </ul>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{ route('login') }}">Войти</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('registration') }}">Зарегестрироваться</a>
+                                    </li>
+                                </ul>
                             @endguest
-                            
+
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    @yield('content')
+    <main>
+        <div class="container">
+            @yield('content')
+        </div>
+    </main>
+
     <footer>
 
 

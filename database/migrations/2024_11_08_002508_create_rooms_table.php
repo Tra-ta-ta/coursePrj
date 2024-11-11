@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('rooms', function (Blueprint $table) {
             $table->integer('id')->autoIncrement()->primary();
-            $table->integer('users_idUser');
+            $table->integer('users_idUser')->nullable();
             $table->integer('typeRoom_idTypeRoom');
             $table->integer('number');
             $table->string('statusRoom', 12);
             $table->foreign('users_idUser')->references('id')->on('users')->onDelete('NO ACTION')->onUpdate('NO ACTION');
-            $table->foreign('typeRoom_idTypeRoom')->references('id')->on('typeRooms')->onDelete('NO ACTION')->onUpdate('NO ACTION');
+            $table->foreign('typeRoom_idTypeRoom')->references('id')->on('type_rooms')->onDelete('NO ACTION')->onUpdate('NO ACTION');
             $table->timestamps();
         });
     }

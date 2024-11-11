@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegistrationController;
+use App\Http\Controllers\Auth\RoomsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Bronirovanie;
 use App\Http\Controllers\LogoutController;
@@ -23,3 +24,5 @@ Route::get('/login',[LoginController::class,'index'])->middleware('guest')->name
 Route::post('/login',[LoginController::class,'login'])->middleware('guest');
 
 Route::post('/logout',[LogoutController::class,'logout'])->middleware('auth')->name('logout');
+
+Route::resource('/room', RoomsController::class)->middleware('chekRole');
