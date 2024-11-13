@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Room;
+use App\Models\TypeRoom;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -43,7 +44,7 @@ class RoomsController extends Controller
     public function show(string $id)
     {
         $room = Room::find($id);
-        return view('admin.room', ['room']);
+        return view('admin.room', ['room' => $room]);
     }
 
     /**
@@ -52,7 +53,8 @@ class RoomsController extends Controller
     public function edit(string $id)
     {
         $room = Room::find($id);
-        return view('admin.roomEdit', ['room' => $room]);
+        $types = TypeRoom::all();
+        return view('admin.roomEdit', ['room' => $room, 'types' => $types]);
     }
 
     /**
@@ -61,8 +63,14 @@ class RoomsController extends Controller
     public function update(Request $request, string $id)
     {
         $room = Room::find($id);
-        $request->validate([]);
-        $room->update([$request->compact()]);
+        $request->validate([
+            'status' => 'required',
+            'idTypeRoom' => 'required'
+        ]);
+        $room->update([
+            'statusRoom' => $request->status,
+            'typeRoom_idTypeRoom' => $request->idTypeRoom
+        ]);
         $request->session()->flash('status', 'Номер №' . $room->number . ' был успешно изменён');
         return redirect()->route('room.index');
     }
