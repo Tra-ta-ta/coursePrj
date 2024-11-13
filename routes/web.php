@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\RoomsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Bronirovanie;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\Auth\ServiceController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -26,3 +27,4 @@ Route::post('/login',[LoginController::class,'login'])->middleware('guest');
 Route::post('/logout',[LogoutController::class,'logout'])->middleware('auth')->name('logout');
 
 Route::resource('/room', RoomsController::class)->middleware('chekRole');
+Route::resource('/service', ServiceController::class)->middleware('chekRole');
