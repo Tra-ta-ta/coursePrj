@@ -30,7 +30,7 @@
                             <a class="nav-link active" aria-current="page" href="{{ route('welcome') }}">Главная</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Услуги</a>
+                            <a class="nav-link" href="">Услуги</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Наши номера</a>
@@ -41,7 +41,7 @@
                                     <a class="nav-link" href="{{ route('room.index') }}">Управление номерами</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Управление услугами</a>
+                                    <a class="nav-link" href="{{route('service.index')}}">Управление услугами</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">Управление персоналом</a>

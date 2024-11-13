@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Service;
 use Illuminate\Http\Request;
 
 class ServiceController extends Controller
@@ -12,7 +13,8 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        //
+        $services = Service::paginate(10);
+        return view('admin.services', ['services' => $services]);
     }
 
     /**
@@ -20,7 +22,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.serviceCreate');
     }
 
     /**
@@ -28,7 +30,10 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([]);
+        $service = Service::create([]);
+        $service->save();
+        return redirect()->route('service.index');
     }
 
     /**
@@ -36,7 +41,8 @@ class ServiceController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $service = Service::find($id);
+        return view('admin.service', ['service' => $service]);
     }
 
     /**
@@ -44,7 +50,8 @@ class ServiceController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $service = Service::find($id);
+        return view('admin.serviceEdit', ['service' => $service]);
     }
 
     /**
@@ -52,7 +59,15 @@ class ServiceController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $service = Service::find($id);
+        $request->validate([
+
+        ]);
+        $service->update([
+
+        ]);
+        $request->session()->flash('status', 'Услуга была изменена');
+        return redirect()->route('service.index');
     }
 
     /**
@@ -60,6 +75,8 @@ class ServiceController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $service = Service::find($id);
+        $service->delete();
+        return redirect()->route('service.index');
     }
 }
