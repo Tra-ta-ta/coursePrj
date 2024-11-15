@@ -18,7 +18,7 @@
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Панель навигации</a>
+                <a class="navbar-brand" href="{{ route('welcome') }}">Главная</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
                     aria-label="Переключатель навигации">
@@ -27,21 +27,28 @@
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ route('welcome') }}">Главная</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="">Услуги</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Наши номера</a>
                         </li>
                         @auth
+                            @if (Auth::user()->isUser())
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('order.create') }}">Забронировать</a>
+                                </li>
+                            @endif
+                        @endauth
+                        @auth
                             @if (Auth::user()->isAdmin())
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('order.index') }}">Заказы на бронь</a>
+                                </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('room.index') }}">Управление номерами</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{route('service.index')}}">Управление услугами</a>
+                                    <a class="nav-link" href="{{ route('service.index') }}">Управление услугами</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">Управление персоналом</a>
@@ -56,7 +63,10 @@
                             </a>
                             @auth
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="{{ route('login') }}">Личный кабинет</a></li>
+                                    @if (Auth::user()->isUser())
+                                        <li><a class="dropdown-item" href="{{ route('login') }}">Личный кабинет</a></li>
+                                    @endif
+
                                     <form action="{{ route('logout') }}" method="post">
                                         @csrf
                                         <li><button class="dropdown-item" type="success">Выйти</button></li>

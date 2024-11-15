@@ -71,8 +71,7 @@ class RoomsController extends Controller
             'statusRoom' => $request->status,
             'typeRoom_idTypeRoom' => $request->idTypeRoom
         ]);
-        $request->session()->flash('status', 'Номер №' . $room->number . ' был успешно изменён');
-        return redirect()->route('room.index');
+        return redirect()->route('room.index')->with('status', 'Номер №' . $room->number . ' был успешно изменён');
     }
 
     /**
@@ -82,6 +81,6 @@ class RoomsController extends Controller
     {
         $room = Room::find($id);
         $room->delete();
-        return redirect()->route('room.index');
+        return redirect()->route('room.index')->with('status', 'Номер №' . $room->number . ' был удалён');
     }
 }

@@ -30,10 +30,16 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([]);
-        $service = Service::create([]);
+        $request->validate([
+            'name' => 'required|min:5',
+            'discriprion' => 'required'
+        ]);
+        $service = Service::create([
+            'name' => $request->name,
+            'discriprion' => $request->discriprion
+        ]);
         $service->save();
-        return redirect()->route('service.index');
+        return redirect()->route('service.index')->with('status', 'Услуга ' . $request->name . ' успешно добавлена');
     }
 
     /**
@@ -61,13 +67,14 @@ class ServiceController extends Controller
     {
         $service = Service::find($id);
         $request->validate([
-
+            'name' => 'required',
+            'discriprion' => 'required'
         ]);
         $service->update([
-
+            'name' => $request->name,
+            'discriprion' => $request->discriprion
         ]);
-        $request->session()->flash('status', 'Услуга была изменена');
-        return redirect()->route('service.index');
+        return redirect()->route('service.index')->with('status', 'Услуга №' . $service->id . ' успешно изменена');
     }
 
     /**
@@ -77,6 +84,6 @@ class ServiceController extends Controller
     {
         $service = Service::find($id);
         $service->delete();
-        return redirect()->route('service.index');
+        return redirect()->route('service.index')->with('status', 'Услуга ' . $service->name . ' удалена');
     }
 }

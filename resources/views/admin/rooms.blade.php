@@ -1,6 +1,9 @@
 @extends('loyauts.formsite')
 @section('title', 'Номера')
 @section('content')
+    @if (session('status'))
+        {{ session('status') }}
+    @endif
     <div class="row">
         <table class="table table-sm">
             <thead>

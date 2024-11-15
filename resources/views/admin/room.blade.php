@@ -1,18 +1,18 @@
 @extends('loyauts.formsite')
-@section('title','Номера')
+@section('title', 'Номера')
 @section('content')
-<div class="row">
-    <table class="table table-sm">
-        <thead>
-            <tr>
-                <th scope="col">#id</th>
-                <th scope="col">Номер номера</th>
-                <th scope="col">Тип номера</th>
-                <th scope="col">Статус</th>
-                <th scope="col">Действия</th>
-            </tr>
-        </thead>
-        <tbody class="table-group-divider">
+    <div class="row">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">#id</th>
+                    <th scope="col">Номер номера</th>
+                    <th scope="col">Тип номера</th>
+                    <th scope="col">Статус</th>
+                    <th scope="col">Действия</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
                 <tr>
                     <th scope="row"> {{ $room->id }}</th>
                     <td>{{ $room->number }}</td>
@@ -27,7 +27,7 @@
                         </form>
                     </td>
                 </tr>
-        </tbody>
-    </table>
-</div>
+            </tbody>
+        </table>
+    </div>
 @endsection
