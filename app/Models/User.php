@@ -19,4 +19,14 @@ class User extends Authenticatable
         $role = Role::find($this->roles_idRole);
         return $role->value == 'Пользователь' ? true : false;
     }
+    public function isPersonal()
+    {
+        $role = Role::find($this->roles_idRole);
+        return $role->value == 'Персонал' ? true : false;
+    }
+    public function currentRoom()
+    {
+        $room = Room::where('users_idUser', '=', $this->id)->first();
+        return $room;
+    }
 }

@@ -26,14 +26,14 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="">Услуги</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Наши номера</a>
-                        </li>
                         @auth
                             @if (Auth::user()->isUser())
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('service.index') }}">Услуги</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Наши номера</a>
+                                </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('order.create') }}">Забронировать</a>
                                 </li>

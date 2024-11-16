@@ -25,6 +25,7 @@
               </select>
         </div>
         <button class="mt-3 btn btn-primary w-100 py-2" type="submit">Изменить</button>
+        
     </form>
 </main>
 @endsection

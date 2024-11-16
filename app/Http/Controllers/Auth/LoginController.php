@@ -9,23 +9,28 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         return view('login');
     }
 
-    public function login(Request $request){
+    public function login(Request $request)
+    {
         $request->validate([
             'login' => 'required',
             'password' => 'required'
         ]);
 
-        if(Auth::attempt($request->only(['login','password']))){
+        if (Auth::attempt($request->only(['login', 'password']))) {
             $request->session()->regenerate();
+            if (Auth::user()->isPersonal()) {
+                return redirect()->route('orderService.index');
+            }
             return redirect()->route('dashboard');
-        }else{
-        return back()->withErrors([
-            'login' => 'Таких данных не существует!'
-        ])->onlyInput('login');
+        } else {
+            return back()->withErrors([
+                'login' => 'Таких данных не существует!'
+            ])->onlyInput('login');
         }
     }
 }

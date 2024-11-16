@@ -20,6 +20,9 @@ class CheckUser
             if (Auth::user()->isUser()) {
                 return $next($request);
             }
+            if (Auth::user()->isPersonal()) {
+                return redirect()->route('orderService.index');
+            }
         }
         return redirect()->route('welcome');
     }

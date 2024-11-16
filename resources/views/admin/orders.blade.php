@@ -1,5 +1,5 @@
 @extends('loyauts.formsite')
-@section('title', 'Номера')
+@section('title', 'Заказы')
 @section('content')
     @if (session('status'))
         {{ session('status') }}
@@ -31,7 +31,16 @@
                         <td>{{ $order->onDate }}</td>
                         <td>{{ $order->duration }}</td>
                         <td>
-                            <a class="btn btn-secondary" href="{{ route('order.edit', $order->id) }}">Просмотр</a>
+                            @if ($order->status == 'Принят')
+                                <form action="{{ route('order.destroy', $order->id) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger">Удалить</button>
+                                </form>
+                            @else
+                                <a class="btn btn-secondary" href="{{ route('order.edit', $order->id) }}">Просмотр</a>
+                            @endif
+
                         </td>
                     </tr>
                 @endforeach

@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\Room;
 use App\Models\TypeRoom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class OrdersController extends Controller
 {
@@ -41,20 +43,28 @@ class OrdersController extends Controller
     public function store(Request $request)
     {
         if (Auth::user()->isUser()) {
-            $request->validate([
-                'onDate' => 'required|after_or_equal:tomorrow|date',
-                'duration' => 'required|min_digits:1'
-            ]);
-            $room = Order::create([
-                'message' => $request->message,
-                'onDate' => $request->onDate,
-                'duration' => $request->duration,
-                'typeRoom_idTypeRoom' => $request->idTypeRoom,
-                'users_idUser' => Auth::user()->id,
-                'status' => 'Новый'
-            ]);
-            $room->save();
-            return redirect()->route('login')->with('status', 'Заказ успешно отправлен');
+            $isUserHasOrder = Order::where('users_idUser', '=', $request->idUser)->first();
+            $room = Room::where('users_idUser', '=', null)->where('typeRoom_idTypeRoom', '=', $request->idTypeRoom)->first();
+            if (!isset($isUserHasOrder)) {
+                if (isset($room)) {
+                    $request->validate([
+                        'onDate' => 'required|after_or_equal:tomorrow|date',
+                        'duration' => 'required|min_digits:1'
+                    ]);
+                    $order = Order::create([
+                        'message' => $request->message,
+                        'onDate' => $request->onDate,
+                        'duration' => $request->duration,
+                        'typeRoom_idTypeRoom' => $request->idTypeRoom,
+                        'users_idUser' => $request->idUser,
+                        'status' => 'Новый'
+                    ]);
+                    $order->save();
+                    return redirect()->route('login')->with('status', 'Заказ успешно отправлен');
+                }
+                return redirect()->route('dashboard')->with('status', 'Нет свободных номеров, извините');
+            }
+            return redirect()->route('order.create')->with('status', 'У вас уже есть заказ');
         }
         return redirect()->route('welcome');
     }
@@ -81,6 +91,11 @@ class OrdersController extends Controller
             $types = TypeRoom::all();
             return view('auth.orderEdit', ['order' => $order, 'types' => $types]);
         }
+        if (Auth::user()->isAdmin()) {
+            $order = Order::find($id);
+            $rooms = Room::all()->where('typeRoom_idTypeRoom', '=', $order->typeRoom_idTypeRoom)->where('users_idUser', '=', null);
+            return view('admin.orderEdit', ['order' => $order, 'rooms' => $rooms]);
+        }
         return redirect()->route('welcome');
     }
 
@@ -101,6 +116,23 @@ class OrdersController extends Controller
             ]);
             return redirect()->route('login')->with('status', 'Заказ был изменён');
         }
+        if (Auth::user()->isAdmin()) {
+            $order = Order::find($id);
+            $room = Room::find($request->idRoom);
+            $request->validate([
+                'idRoom' => 'required'
+            ]);
+            $order->update([
+                'status' => 'Принят',
+                'rooms_idRoom' => $request->idRoom
+            ]);
+            $room->update([
+                'users_idUser' => $order->users_idUser,
+                'isBusy' => 1,
+                'statusRoom' => 'Занят'
+            ]);
+            return redirect()->route('order.index')->with('status', 'Заказ был принят');
+        }
         return redirect()->route('welcome');
     }
 
@@ -111,11 +143,20 @@ class OrdersController extends Controller
     {
         if (Auth::user()->isAdmin()) {
             $order = Order::find($id);
+            $room = Room::where('users_idUser', '!=', null)->where('id', '=', $order->rooms_idRoom)->first();
             $order->update([
-                'status' => 'Выполнен'
+                'status' => 'Выполнен или отменён'
             ]);
+            if (isset($room)) {
+                $room->update([
+                    'users_idUser' => null,
+                    'statusRoom' => 'Свободно',
+                    'isBusy' => 0
+                ]);
+            }
+
             $order->delete();
-            return redirect()->route('room.index')->with('status', 'Заказ №' . $order->number . ' был удалён');
+            return redirect()->route('order.index')->with('status', 'Заказ был удалён');
         }
         if (Auth::user()->isUser()) {
             $order = Order::find($id);
