@@ -8,7 +8,9 @@ use App\Models\Room;
 use App\Models\TypeRoom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
+use App\Exports\OrdersExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class OrdersController extends Controller
 {
@@ -166,5 +168,9 @@ class OrdersController extends Controller
             $order->delete();
             return redirect()->route('login')->with('status', 'Заказ был удалён');
         }
+    }
+    public function createReport()
+    {
+        return Excel::download(new OrdersExport, 'ordersIn' . date('M') . '.xlsx');
     }
 }

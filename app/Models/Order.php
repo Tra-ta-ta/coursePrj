@@ -16,7 +16,8 @@ class Order extends Model
     }
     public function checkRoom()
     {
-        $room = Room::find($this->rooms_idRoom);
+
+        $room = Room::withTrashed()->where('id', '=', $this->rooms_idRoom)->first();
         return $room;
     }
     public function checkUser()

@@ -32,7 +32,7 @@
                                     <a class="nav-link" href="{{ route('service.index') }}">Услуги</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Наши номера</a>
+                                    <a class="nav-link" href="{{ route('typeRooms.index') }}">Наши номера</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('order.create') }}">Забронировать</a>
@@ -89,9 +89,9 @@
         </nav>
     </header>
     <main>
-        <div class="container">
-            @yield('content')
-        </div>
+
+        @yield('content')
+
     </main>
 
     <footer>

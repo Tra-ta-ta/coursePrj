@@ -11,7 +11,7 @@ class Orders_on_service extends Model
     protected $fillable = ['rooms_idRoom', 'users_idUser', 'services_idService', 'status'];
     public function checkRoom()
     {
-        $room = Room::find($this->rooms_idRoom);
+        $room = Room::withTrashed()->where('id', '=', $this->rooms_idRoom)->first();
         return $room;
     }
     public function checkUser()
