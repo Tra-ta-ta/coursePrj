@@ -11,8 +11,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $orders = Order::withTrashed()->where('users_idUser', '=', Auth::user()->id)->paginate(10);
-        $orders_on_service = Orders_on_service::withTrashed()->where('users_idUser', '=', Auth::user()->id)->paginate(10);
+        $orders = Order::withTrashed()->where('users_idUser', '=', Auth::user()->id)->get();
+        $orders_on_service = Orders_on_service::withTrashed()->where('users_idUser', '=', Auth::user()->id)->get();
         return view('auth.dashboard', ['orders' => $orders, 'orders_on_service' => $orders_on_service]);
     }
 }

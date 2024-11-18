@@ -1,38 +1,39 @@
 @extends('loyauts.formsite')
-@section('title', 'Услуги')
+@section('title', 'Номера')
 @section('content')
     <div class="container">
         @if (session('status'))
             {{ session('status') }}
         @endif
+
         <div class="row mt-3">
             <div class="col-2">
-                <a href="{{ route('service.create') }}" class="btn btn-success mb-3">Добавить услугу</a>
-                <a href="{{ route('createReportOrdersService') }}" class="btn btn-primary">Отчёт за месяц</a>
+                <a href="{{ route('personal.create') }}" class="btn btn-success">Добавить персонал</a>
             </div>
             <div class="col">
                 <table class="table table-sm">
                     <thead>
                         <tr>
                             <th scope="col">#id</th>
-                            <th scope="col">Услуга</th>
-                            <th scope="col">Описание</th>
+                            <th scope="col">ФИО</th>
+                            <th scope="col">Номер телефона</th>
+                            <th scope="col">Логин</th>
                             <th scope="col">Действия</th>
                         </tr>
                     </thead>
                     <tbody class="table-group-divider">
-                        @foreach ($services as $service)
+                        @foreach ($users as $user)
                             <tr>
-                                <th scope="row"> {{ $service->id }}</th>
-                                <td>{{ $service->name }}</td>
-                                <td>{{ $service->discriprion }}</td>
+                                <th scope="row"> {{ $user->id }}</th>
+                                <td>{{ $user->surname }} {{ $user->name }} {{ $user->thirdname }}</td>
+                                <td>{{ $user->phone }}</td>
+                                <td>{{ $user->login }}</td>
                                 <td>
-
-                                    <form action="{{ route('service.destroy', $service->id) }}" method="post">
+                                    <form action="{{ route('personal.destroy', $user->id) }}" method="post">
                                         @method('DELETE')
                                         @csrf
                                         <a class="btn btn-secondary"
-                                            href="{{ route('service.edit', $service->id) }}">Изменить</a>
+                                            href="{{ route('personal.edit', $user->id) }}">Изменить</a>
                                         <button type="submit" class="btn btn-danger">Удалить</button>
                                     </form>
                                 </td>
@@ -42,13 +43,12 @@
                 </table>
             </div>
 
-
         </div>
         <div class="row text-center">
-            {{ $services->links() }}
+            {{ $users->links() }}
         </div>
 
-    </div>
 
+    </div>
 
 @endsection

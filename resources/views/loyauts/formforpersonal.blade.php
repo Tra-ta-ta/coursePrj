@@ -16,7 +16,7 @@
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <nav class="navbar navbar-expand-lg" style="background-color: #ffe6cc;">
             <div class="container-fluid">
                 @auth
                     @if (Auth::user()->isPersonal())

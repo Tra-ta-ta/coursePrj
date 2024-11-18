@@ -16,7 +16,7 @@
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <nav class="navbar navbar-expand-lg" style="background-color: #ffe6cc;">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{{ route('welcome') }}">Главная</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -51,7 +51,7 @@
                                     <a class="nav-link" href="{{ route('service.index') }}">Управление услугами</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Управление персоналом</a>
+                                    <a class="nav-link" href="{{ route('personal.index') }}">Управление персоналом</a>
                                 </li>
                             @endif
                         @endauth

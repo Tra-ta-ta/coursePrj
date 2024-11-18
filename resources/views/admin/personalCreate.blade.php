@@ -1,13 +1,13 @@
 @extends('loyauts.formsite')
-@section('title', 'Регистрация')
+@section('title', 'Регистрация персонала')
 @section('content')
     <main class="form-signin w-100 m-auto">
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <form method="POST" action="{{ route('registration') }}">
+                    <form method="POST" action="{{ route('personal.store') }}">
                         @csrf
-                        <h1 class="h3 mb-3 mt-3 fw-normal">Регистрация</h1>
+                        <h1 class="h3 mb-3 mt-3 fw-normal">Регистрация персонала</h1>
                         @error('name')
                             <div class="text-danger">
                                 {{ $message }}
@@ -45,7 +45,7 @@
                         @enderror
                         <div class="form-floating mb-3">
                             <input type="text" name="phone" class="form-control" id="floatingInput"
-                                value="{{ old('phome') }}">
+                                value="{{ old('phone') }}">
                             <label for="floatingInput">Телефон</label>
                         </div>
                         @error('login')
@@ -64,12 +64,12 @@
                             </div>
                         @enderror
                         <div class="form-floating mb-3">
-                            <input type="password" name="password" class="form-control" id="floatingPassword">
-                            <label for="floatingPassword">Пароль</label>
+                            <input type="password" name="password" class="form-control" id="floatingInput">
+                            <label for="floatingInput">Пароль</label>
                         </div>
                         <div class="text-center">
                             <button class="btn btn-primary py-2 mb-3" style="width: 300px"
-                                type="submit">Зарегистрироваться</button>
+                                type="submit">Зарегистрировать</button>
                         </div>
                     </form>
                 </div>

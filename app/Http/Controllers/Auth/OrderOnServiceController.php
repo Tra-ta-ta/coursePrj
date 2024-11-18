@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Orders_on_service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Exports\OrdersOnServiceExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OrderOnServiceController extends Controller
 {
@@ -104,5 +106,9 @@ class OrderOnServiceController extends Controller
             return redirect()->route('orderService.index')->with('status', 'Заказ ' . $order->name . ' выполнен');
         }
         return redirect()->route('welcome');
+    }
+    public function createReport()
+    {
+        return Excel::download(new OrdersOnServiceExport, 'ordersOnServiceIn' . date('M') . '.xlsx');
     }
 }

@@ -2,10 +2,6 @@
 @section('title', 'Услуги')
 @section('content')
     <div class="container">
-        @foreach ($errors->all() as $error)
-            {{ $error }}
-        @endforeach
-
         <main class="form-signin w-100 m-auto">
             <form method="POST" action="{{ route('service.update', $service->id) }}">
                 @method('PUT')
@@ -26,7 +22,9 @@
                         value="{{ $service->discriprion }}">
                     <label for="floatingInput">Описание</label>
                 </div>
-                <button class="mt-3 btn btn-primary w-100 py-2" type="submit">Изменить</button>
+                <div class="text-center">
+                    <button class="mt-3 btn btn-primary py-2" style="width: 200px" type="submit">Изменить</button>
+                </div>
             </form>
         </main>
     </div>

@@ -22,7 +22,9 @@
                         value="{{ old('discriprion') }}">
                     <label for="floatingInput">Описание</label>
                 </div>
-                <button class="mt-3 btn btn-primary w-100 py-2" type="submit">Добавить</button>
+                <div class="text-center">
+                    <button class="mt-3 btn btn-primary py-2" style="width: 200px" type="submit">Добавить</button>
+                </div>
             </form>
         </main>
     </div>

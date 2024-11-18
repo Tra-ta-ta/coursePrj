@@ -19,7 +19,7 @@ class ServiceController extends Controller
             return view('admin.services', ['services' => $services]);
         }
         if (Auth::user()->isUser()) {
-            $services = Service::paginate(10);
+            $services = Service::all();
             return view('auth.services', ['services' => $services]);
         }
     }
