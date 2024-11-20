@@ -21,7 +21,7 @@ class Orders_on_service extends Model
     }
     public function checkService()
     {
-        $service = Service::find($this->services_idService);
+        $service = Service::withTrashed()->where('id', '=', $this->services_idService)->first();
         return $service;
     }
 }

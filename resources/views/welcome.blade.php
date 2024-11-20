@@ -23,12 +23,14 @@
                             <p class="card-text">Описание: {{ $typeroom->description }}</p>
                             <p class="card-text">Цена: {{ $typeroom->price }}р.</p>
                             @auth
-                                @if (Auth::user()->currentRoom() == null)
-                                    <a href="{{ route('order.create') }}" class="btn btn-success" disabled>Перейти к
-                                        бронированию</a>
-                                @else
-                                    <a href="{{ route('order.create') }}" class="btn btn-success">Перейти к
-                                        бронированию</a>
+                                @if (Auth::user()->isUser())
+                                    @if (Auth::user()->currentRoom() == null)
+                                        <a href="{{ route('order.create') }}" class="btn btn-success" disabled>Перейти к
+                                            бронированию</a>
+                                    @else
+                                        <a href="{{ route('order.create') }}" class="btn btn-success">Перейти к
+                                            бронированию</a>
+                                    @endif
                                 @endif
                             @endauth
 
