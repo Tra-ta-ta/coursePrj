@@ -14,7 +14,7 @@ class OrdersExport implements FromView, ShouldAutoSize
         $orders = Order::withTrashed()->where('onDate', 'like', '%' . date('m') . '%')->get();
         $full_price = 0;
         foreach ($orders as $order) {
-            $full_price += $order->checkType()->price;
+            $full_price += $order->checkType()->price * $order->duration;
         }
         return view('export.orders', [
             'orders' => $orders,
